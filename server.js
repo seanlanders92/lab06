@@ -20,9 +20,14 @@ app.get('/weather', (request, response) => {
     let city = request.query.city;
     let weatherData = require('./data/darksky.json')
 
-    let weatherLocation = new Weather(city, weatherData)
+    let allData = []
 
-    response.send(weatherLocation);
+    weatherData.daily.data.forEach((element) => {
+        let forecast = new Weather(element)
+        allData.push(forecast);
+    })
+
+    response.send(allData);
 })
 
 app.get('/location', (request, response) => {
@@ -47,9 +52,9 @@ function City(city, obj){
   this.longitude = obj.lon;
 }
 
-function Weather(city, obj){
-    this.forcast = forcast;
-    this.time = time;
+function Weather(obj){
+    this.forecast = obj.summary;
+    this.time = obj.time;
 
 }
 // turn on the server
