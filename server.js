@@ -6,6 +6,7 @@ const express = require('express');
 // instantiates the express library in app
 const app = express();
 
+const superAgent = require('superagent');
 // lets us go into the .env and get the variables
 require('dotenv').config();
 
@@ -17,7 +18,7 @@ app.use(cors());
 const PORT = process.env.PORT || 3001;
 
 app.get('/weather', (request, response) => {
-    let city = request.query.city;
+    let{search_query, formatted_query, latitude, longitude} = request.query;
     let weatherData = require('./data/darksky.json')
 
     let allData = []
@@ -41,6 +42,7 @@ app.get('/location', (request, response) => {
     response.send(location);
   }
   catch (err){
+      response.status
     console.log(err);
   }
 })
@@ -54,7 +56,7 @@ function City(city, obj){
 
 function Weather(obj){
     this.forecast = obj.summary;
-    this.time = obj.time;
+    this.time = new Date(obj.time).toDateString;
 
 }
 // turn on the server
