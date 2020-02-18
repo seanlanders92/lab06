@@ -16,10 +16,18 @@ app.use(cors());
 // get the port from the env
 const PORT = process.env.PORT || 3001;
 
+app.get('/weather', (request, response) => {
+    let city = request.query.city;
+    let weatherData = require('./data/darksky.json')
+
+    let weatherLocation = new Weather(city, weatherData)
+
+    response.send(weatherLocation);
+})
+
 app.get('/location', (request, response) => {
   try{
     let city = request.query.city;
-    console.log(request);
     let geoData = require('./data/geo.json');
     //let geoData = JSON.parse(geo);
   
@@ -30,7 +38,6 @@ app.get('/location', (request, response) => {
     //   "latitude": geoData[0].lat,
     //   "longitude": geoData[0].lon
    // }
-  console.log(location);
     response.send(location);
   }
   catch (err){
@@ -45,6 +52,11 @@ function City(city, obj){
   this.longitude = obj.lon;
 }
 
+function Weather(city, obj){
+    this.forcast = forcast;
+    this.time = time;
+
+}
 // turn on the server
 app.listen(PORT, () => {
   console.log(`listening to ${PORT}`);
