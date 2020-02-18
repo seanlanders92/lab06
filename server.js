@@ -11,7 +11,7 @@ require('dotenv').config();
 
 // the policeman - lets the server know that it is OK to give information to the front end
 const cors = require('cors');
-app.use(cors())
+app.use(cors());
 
 // get the port from the env
 const PORT = process.env.PORT || 3001;
