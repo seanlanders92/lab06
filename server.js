@@ -32,12 +32,7 @@ app.get('/location', (request, response) => {
     //let geoData = JSON.parse(geo);
   
     let location = new City(city, geoData[0])
-    //  let dataObj = {
-    //   "search_query": city,
-    //   "formatted_query": geoData[0].display_name,
-    //   "latitude": geoData[0].lat,
-    //   "longitude": geoData[0].lon
-   // }
+   
     response.send(location);
   }
   catch (err){
