@@ -42,8 +42,7 @@ app.get('/location', (request, response) => {
     response.send(location);
   }
   catch (err){
-      response.status
-    console.log(err);
+      response.status(200).send(location);
   }
 })
 
